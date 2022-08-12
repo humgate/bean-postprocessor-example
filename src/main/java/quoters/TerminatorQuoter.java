@@ -14,9 +14,11 @@ public class TerminatorQuoter implements Quoter {
     }
 
     @Override
+    @PostProxy
     public void sayQuote() {
+        System.out.println("Post proxy (after context refreshed)");
         for (int i = 0; i < repeat; i++) {
-            System.out.println(message + message);
+            System.out.println("message= " + message);
         }
 
     }
@@ -33,11 +35,5 @@ public class TerminatorQuoter implements Quoter {
 
     public static void main(String[] args) throws InterruptedException {
         var context = new ClassPathXmlApplicationContext("context.xml");
-        while (true) {
-            Thread.sleep(100);
-            context.getBean(Quoter.class).sayQuote();
-        }
-
-
     }
 }
